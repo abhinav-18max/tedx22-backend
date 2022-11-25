@@ -24,21 +24,17 @@ const partSchema = mongoose.Schema({
        // unique: true
 
     },
-    amount:{
-        type:Number,
-        required:true
-    },
     phno:{
         type:Number,
         required:[true,"Can't be blank"],
-        min:10,
-        unique:true
+        min:10
+       // unique:true
     },
     paymentstatus:{
         type:String,
         required:[true,"Can't be blank"]
     },
-    paymentid{
+    paymentid:{
         type:String,
         required:[true,"Can't be blank"]
     }
