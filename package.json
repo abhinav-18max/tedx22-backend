@@ -7,16 +7,19 @@
     "start": "node index.js",
     "dev": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "heroku-postbuild": "npm run build",heroku git:remote -a tedx22
+    "heroku-postbuild": "npm run build",
+    "heroku git": "remote -a tedx22"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.20.0",
     "cors": "^2.8.5",
+    "crypto": "^1.0.1",
     "express": "^4.18.1",
     "mongoose": "^6.5.3",
     "nodemon": "^2.0.19",
+    "razorpay": "^2.8.3",
     "shortid": "^2.2.16",
     "yarn": "^1.22.19"
   }

@@ -2,6 +2,9 @@ const mongoose =require('mongoose');
 
 const shortid=require('shortid')
 
+const seatSchema =mongoose.Schema({
+
+})
 const partSchema = mongoose.Schema({
     part_id:{
         type:String,
@@ -14,25 +17,13 @@ const partSchema = mongoose.Schema({
         min:6,
         index:true
     },
-    category:{
-        type:String,
-        required:[true,"cant be blank"],
-        min:6,
-        max:100
-    },
-    seat:{
-        type:String,
-        unique:true,
-        required:[true,"cant be blank"]
-    },
     mailid:{
         type:String,
         required:[true,"can't be blank"],
         match: /.+\@.+\..+/,
-        unique: true
+       // unique: true
 
     },
-
     amount:{
         type:Number,
         required:true
@@ -43,10 +34,13 @@ const partSchema = mongoose.Schema({
         min:10,
         unique:true
     },
-    adress:{
+    paymentstatus:{
         type:String,
-        required:[true,"Can't be blank"],
-
+        required:[true,"Can't be blank"]
+    },
+    paymentid{
+        type:String,
+        required:[true,"Can't be blank"]
     }
 })
 //partSchema.plugin(require('mongoose-beautiful-unique-validation'));

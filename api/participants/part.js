@@ -2,7 +2,8 @@ const part=require('../models/participants')
 const {model} =require("mongoose");
 
 const Part = {
-    add: async function (req, res) {
+
+    save: async function (req, res) {
         const {
             name,
             category,
@@ -20,17 +21,18 @@ const Part = {
                 msg: 'enter all feilds'
             })
         }
+        part.find({},'phno',(err,arrdata)=>{
 
+        })
 
 
         const newpart = part({
             name: name,
-            category: category,
             mailid: mailid,
             phno: phno,
-            adress: adress,
-            seat: seat,
-            amount: amount
+            amount: amount,
+            paymentstatus:"pending",
+            paymentid:"not available"
 
         })
         newpart.save((err, newpart) => {
@@ -48,26 +50,50 @@ const Part = {
             }
         })
     },
-    find: async function (req, res) {
-        //const projection ={_id:0,seat:1};
-        part.find({},'seat', (err, arrdata) => {
-            if(!err) {
-                res.status(200).send({
-                    sucess: true,
-                    data: arrdata
-                })
-            }
-                else{
-                    sucess:false,
+
+    id: async function (req, res) {
+        // console.log(req.params);
+        part.findById(
+            {
+                _id: req.params.id,
+            },
+            (err, arrdata) => {
+                if (err) {
                     res.status(400).send({
-                        sucess:false,
-                        err,
-                    })
+                        sucess: false,
+                    });
+                } else {
+                    res.status(200).send({
+                        sucess: true,
+                        data:arrdata,
+                    });
+                }
             }
+        );
+    },
+    detail: async function (req,res){
+        var pass =req.params.pass;
+        if(pass=="abcd$1256"){
+            part.find({},function (err,users){
+                var userslist={};
+
+                users.forEach(function (user){
+                    userslist[user._id]=user;
+                })
+                res.status(200).send({
+                    sucess:true,
+                    data:userslist
+                })
+            })
 
 
-        });
-
+        }
+        else{
+            res.status(200).send({
+                sucess:false,
+                data:"Not Authenticated"
+            })
+        }
     }
 }
 
