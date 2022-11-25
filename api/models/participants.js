@@ -28,7 +28,7 @@ const partSchema = mongoose.Schema({
         type:Number,
         required:[true,"Can't be blank"],
         min:10
-       // unique:true
+       
     },
     paymentstatus:{
         type:String,
