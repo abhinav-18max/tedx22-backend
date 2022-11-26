@@ -11,7 +11,9 @@ const Part = {
         const {
             name,
             mailid,
-            phno
+            phno,
+            institute,
+            question
         } = req.body
 
         if ((!name)|| (!mailid) || (!phno)) {
@@ -93,9 +95,9 @@ const Part = {
 
     id: async function (req, res) {
         // console.log(req.params);
-        part.findById(
+        part.find(
             {
-                _id: req.params.id,
+                part_id: req.params.id,
             },
             (err, arrdata) => {
                 if (err) {

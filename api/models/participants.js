@@ -30,6 +30,14 @@ const partSchema = mongoose.Schema({
         min:10
        
     },
+    institute:{
+        type:String,
+        required:[true,"Can't be blank"]
+    },
+    question:{
+        type:String,
+        required:[true,"Can't be blank"]
+    },
     paymentstatus:{
         type:String,
         required:[true,"Can't be blank"]
