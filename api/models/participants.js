@@ -34,7 +34,7 @@ const partSchema = mongoose.Schema({
         type:String,
         required:[true,"Can't be blank"]
     },
-    paymentid:{
+    razorpayorderid:{
         type:String,
         required:[true,"Can't be blank"]
     }

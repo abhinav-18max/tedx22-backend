@@ -3,7 +3,7 @@ const Razorpay =require("razorpay");
 const crypto =require("crypto");
 const db = require('../../db/db')
 const part = require('../models/participants')
-
+const nodemailer = require('nodemailer');
 const payments={
    
     verify:async function (req,res){
