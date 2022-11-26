@@ -4,6 +4,7 @@ const Razorpay = require("razorpay");
 const crypto = require("crypto");
 const db = require("../../db/db");
 const { update } = require('../models/participants');
+const { response } = require('express');
 require("dotenv").config();
 const Part = {
 
@@ -16,7 +17,7 @@ const Part = {
             question
         } = req.body
 
-        if ((!name)|| (!mailid) || (!phno)) {
+        if ((!name)|| (!mailid) || (!phno) || (!institute) || (!question)) {
             res.status(400).send({
                 sucess: false,
                 msg: 'enter all feilds'
@@ -29,6 +30,8 @@ const Part = {
             name: name,
             mailid: mailid,
             phno: phno,
+            institute: institute,
+            question: question,
             paymentstatus:"pending",
             razorpayorderid:"not available"
 
@@ -42,7 +45,7 @@ const Part = {
                         key_secret:process.env.KEY_SECRET
                         });
                         const options = {
-                        amount: 150000,
+                        amount: 200,
                         currency: "INR",
                         receipt: crypto.randomBytes(10).toString("hex"),
                         };
@@ -62,10 +65,19 @@ const Part = {
                                     {new:true}
                                     ).then((data)=>{
                                         console.log(data);
+                                        const response = {
+                                            _id:data._id,
+                                            name:data.name,
+                                            mailid:data.mailid,
+                                            phno:data.phno,
+                                            paymentstatus:data.paymentstatus,
+                                            razorpayorderid:data.razorpayorderid,
+                                            part_id:data.part_id
+                                        }
                                        // res.json({ order, message: "Paymentid clear" });
                                        res.status(200).send({
                                         sucess:true,
-                                        data:data
+                                        data:response
                                        })
                                     });
 

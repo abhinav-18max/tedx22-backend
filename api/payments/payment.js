@@ -16,7 +16,7 @@ const payments={
 
             if (digest === req.headers['x-razorpay-signature']) {
                 console.log('request is legit')
-                part.findOneAndUpdate({paymentid:req.body.orderid},
+                part.findOneAndUpdate({razorpayorderid:req.body.orderid},
                 {paymentstatus:"payed"}
                 
                 )
