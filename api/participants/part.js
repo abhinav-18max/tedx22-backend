@@ -13,7 +13,7 @@ const Part = {
       console.log(req.body);
 
       if (!name || !mailid || !phno || !institute || !question)
-        res.status(400).send({
+       return res.status(400).send({
           sucess: false,
           msg: "enter all fields",
         });
@@ -103,14 +103,14 @@ const Part = {
       const newpart_ = await newpart.save();
 
       // res.json({ order, message: "Paymentid clear" });
-      res.status(200).send({
+    return  res.status(200).send({
         sucess: true,
         data: newpart_,
       });
     } catch (err) {
       console.log(err);
 
-      res.send(400).send({
+      return res.send(400).send({
         sucess: false,
         err,
       });
@@ -125,11 +125,11 @@ const Part = {
       },
       (err, arrdata) => {
         if (err) {
-          res.status(400).send({
+          return res.status(400).send({
             sucess: false,
           });
         } else {
-          res.status(200).send({
+         return res.status(200).send({
             sucess: true,
             data: arrdata,
           });
@@ -148,13 +148,13 @@ const Part = {
         users.forEach(function (user) {
           userslist[user._id] = user;
         });
-        res.status(200).send({
+        return res.status(200).send({
           sucess: true,
           data: userslist,
         });
       });
     } else {
-      res.status(200).send({
+    return  res.status(200).send({
         sucess: false,
         data: "Not Authenticated",
       });
