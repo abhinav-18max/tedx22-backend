@@ -23,7 +23,7 @@ const Part = {
       });
       console.log("DUP\n\n" + dup);
 
-      if (dup || dup.length > 0) {
+      if (dup.length > 0) {
         if (dup.paymentstatus == "pending")
           return res.status(200).json({ data: dup, duplicate: true });
 

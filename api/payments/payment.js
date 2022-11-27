@@ -7,6 +7,8 @@ const nodemailer = require("nodemailer");
 const payments = {
   verify: async function (req, res) {
     try {
+      console.log(req);
+
       const shasum = crypto.createHmac("sha256", "secret");
       shasum.update(JSON.stringify(req.body));
       const digest = shasum.digest("hex");
