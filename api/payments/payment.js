@@ -8,7 +8,7 @@ const payments={
    
     verify:async function (req,res){
         try {
-            const shasum = crypto.createHmac('sha256', secret)
+            const shasum = crypto.createHmac('sha256', "secret")
             shasum.update(JSON.stringify(req.body))
             const digest = shasum.digest('hex')
 
