@@ -13,9 +13,19 @@ const Part = {
       console.log(req.body);
 
       if (!name || !mailid || !phno || !institute || !question)
-       return res.status(400).send({
+        return res.status(400).send({
           sucess: false,
           msg: "enter all fields",
+        });
+
+      const dup = await part.findOne({
+        phno,
+      });
+
+      if (dup)
+        return res.status(400).send({
+          success: false,
+          msg: "already registered",
         });
 
       // newpart.save((err, newpart) => {
@@ -100,10 +110,24 @@ const Part = {
         paymentstatus: "pending",
         razorpayorderid: order.id,
       });
-      const newpart_ = await newpart.save();
+
+      try {
+        const newpart_ = await newpart.save();
+        if (!newpart_)
+          return res.status(400).send({
+            sucess: false,
+            msg: "error in saving",
+          });
+      } catch (err) {
+        console.log(err);
+        return res.status(400).send({
+          sucess: false,
+          msg: "error in saving",
+        });
+      }
 
       // res.json({ order, message: "Paymentid clear" });
-    return  res.status(200).send({
+      return res.status(200).send({
         sucess: true,
         data: newpart_,
       });
@@ -129,7 +153,7 @@ const Part = {
             sucess: false,
           });
         } else {
-         return res.status(200).send({
+          return res.status(200).send({
             sucess: true,
             data: arrdata,
           });
@@ -154,7 +178,7 @@ const Part = {
         });
       });
     } else {
-    return  res.status(200).send({
+      return res.status(200).send({
         sucess: false,
         data: "Not Authenticated",
       });
