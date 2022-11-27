@@ -16,6 +16,7 @@ const Part = {
             institute,
             question
         } = req.body
+        console.log(req.body);
 
         if ((!name)|| (!mailid) || (!phno) || (!institute) || (!question)) {
             res.status(400).send({
