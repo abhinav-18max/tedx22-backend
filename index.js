@@ -6,7 +6,7 @@ const connect = require("./db/db");
 const router = require(`./api/routes/route`);
 const app = express();
 app.use(cors());
-app.use(morgan("combined"));
+app.use(morgan("dev"));
 app.use(bodyParser.json());
 app.use(express.json());
 const PORT = process.env.PORT || 3000;
