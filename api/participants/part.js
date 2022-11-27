@@ -21,6 +21,7 @@ const Part = {
       const dup = await part.findOne({
         phno,
       });
+      console.log(dup);
 
       if (dup)
         return res.status(400).send({
