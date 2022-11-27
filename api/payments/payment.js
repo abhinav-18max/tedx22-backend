@@ -29,14 +29,11 @@ const payments = {
           { razorpayorderid: req.body.payload.payment.entity.order_id },
           { paymentstatus: "payed" }
         );
-        res.send(200).json({ message: "Verified your payment" });
-      } else {
-        // pass it
-        res.send(200).json({ message: " Not Verified your payment" });
+        return res.send(200).json({ message: " Not Verified your payment" });
       }
     } catch (error) {
-      res.status(500).json({ message: "Internal server Error!" });
       console.log(error);
+      return res.status(500).json({ message: "Internal server Error!" });
     }
   },
 };
