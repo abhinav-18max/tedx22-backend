@@ -18,12 +18,11 @@ const Part = {
           msg: "enter all fields",
         });
 
-      const dup = await part.find({
-        phno: { $eq: phno },
+      const dup = await part.findOne({
+        phno,
       });
-      console.log("DUP\n\n" + dup);
 
-      if (dup.length > 0) {
+      if (dup) {
         if (dup.paymentstatus == "pending")
           return res.status(200).json({ data: dup, duplicate: true });
 

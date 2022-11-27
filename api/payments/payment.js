@@ -25,6 +25,13 @@ const payments = {
           });
         }
 
+        if (req.body.payload.payment.entity.amount_paid !== 200) {
+          return res.status(400).send({
+            sucess: false,
+            msg: "payment failed, amount paid is not 150 rs",
+          });
+        }
+
         part.findOneAndUpdate(
           { razorpayorderid: req.body.payload.payment.entity.order_id },
           { paymentstatus: "payed" }
