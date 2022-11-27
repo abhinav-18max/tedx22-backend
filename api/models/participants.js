@@ -25,7 +25,7 @@ const partSchema = mongoose.Schema({
 
     },
     phno:{
-        type:Number,
+        type:String,
         required:[true,"Can't be blank"],
         min:10
        
