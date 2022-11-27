@@ -21,13 +21,17 @@ const Part = {
       const dup = await part.findOne({
         phno,
       });
-      console.log(dup);
+      console.log("DUP\n\n" + dup);
 
-      if (dup)
+      if (dup) {
+        if (dup.paymentstatus == "pending")
+          return res.status(200).json({ data: dup, duplicate: true });
+
         return res.status(400).send({
           success: false,
           msg: "already registered",
         });
+      }
 
       // newpart.save((err, newpart) => {
       //     if (!err) {
@@ -112,21 +116,12 @@ const Part = {
         razorpayorderid: order.id,
       });
 
-      try {
-        const newpart_ = await newpart.save();
-        if (!newpart_)
-          return res.status(400).send({
-            sucess: false,
-            msg: "error in saving",
-          });
-      } catch (err) {
-        console.log(err);
+      const newpart_ = await newpart.save();
+      if (!newpart_)
         return res.status(400).send({
           sucess: false,
           msg: "error in saving",
         });
-      }
-
       // res.json({ order, message: "Paymentid clear" });
       return res.status(200).send({
         sucess: true,
