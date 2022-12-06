@@ -99,7 +99,7 @@ const Part = {
         key_secret: process.env.KEY_SECRET,
       });
       const options = {
-        amount: 200,
+        amount: 150000,
         currency: "INR",
         receipt: crypto.randomBytes(10).toString("hex"),
       };
@@ -149,8 +149,8 @@ const Part = {
           });
         } else {
           return res.status(200).send({
-            sucess: true,
-            data: arrdata,
+            success: true,
+            data: { ...arrdata, razorpayorderid: undefined },
           });
         }
       }

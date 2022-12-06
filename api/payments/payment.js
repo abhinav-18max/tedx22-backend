@@ -7,7 +7,9 @@ const nodemailer = require("nodemailer");
 const payments = {
   verify: async function (req, res) {
     try {
-      console.log(req.body.payload.payment + " \n\n " + req.body.payload.order);
+      console.log(req.body.payload.payment);
+      console.log(" \n\n ");
+      console.log(req.body.payload.order);
 
       const shasum = crypto.createHmac("sha256", "secret");
       shasum.update(JSON.stringify(req.body));
@@ -30,17 +32,17 @@ const payments = {
         return res.status(200).json({});
       }
 
-    //   if (req.body.payload.payment.entity.amount_paid !== 200) {
-    //     await part.findOneAndUpdate(
-    //       { razorpayorderid: req.body.payload.payment.entity.order_id },
-    //       { paymentstatus: "failed, amount paid is not matching" }
-    //     );
+      //   if (req.body.payload.payment.entity.amount_paid !== 200) {
+      //     await part.findOneAndUpdate(
+      //       { razorpayorderid: req.body.payload.payment.entity.order_id },
+      //       { paymentstatus: "failed, amount paid is not matching" }
+      //     );
 
-    //     return res.status(200).send({
-    //       sucess: false,
-    //       msg: "payment failed, amount paid is not 150 rs",
-    //     });
-    //   }
+      //     return res.status(200).send({
+      //       sucess: false,
+      //       msg: "payment failed, amount paid is not 150 rs",
+      //     });
+      //   }
 
       console.log("Payment Confirmed");
 
@@ -54,8 +56,10 @@ const payments = {
 
       console.log("Database Updated");
       console.log(`\nUpdated Order\n\n${updatedOrder}\n\n`);
+      
 
-      return res.send(200).json({ message: "Verified your payment" });
+      return res.status(200).json({ message: "Verified your payment" });
+
     } catch (error) {
       console.log(error);
       return res.status(200).json({ message: "Internal server Error!" });
