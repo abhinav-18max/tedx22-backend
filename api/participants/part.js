@@ -99,7 +99,7 @@ const Part = {
         key_secret: process.env.KEY_SECRET,
       });
       const options = {
-        amount: 100,
+        amount: 150000,
         currency: "INR",
         receipt: crypto.randomBytes(10).toString("hex"),
       };
