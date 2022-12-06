@@ -4,6 +4,7 @@ const crypto = require("crypto");
 const db = require("../../db/db");
 const part = require("../models/participants");
 const nodemailer = require("nodemailer");
+require("dotenv").config();
 const payments = {
   verify: async function (req, res) {
     try {
@@ -56,10 +57,31 @@ const payments = {
 
       console.log("Database Updated");
       console.log(`\nUpdated Order\n\n${updatedOrder}\n\n`);
-      
+      var transporter = nodemailer.createTransport({
+        service: "gmail",
+        auth: {
+          user: process.env.MAILID,
+          pass: "process.env.PASSWORD",
+        },
+      });
+
+      var mailOptions = {
+        from: "process.env.MAILID",
+        to: updatedOrder.mailid,
+        subject: "Registration Confirmation",
+        text: `Hi ${updatedOrder.name},\n\nYour Registration is confirmed.\n
+        Your Registration ID is ${updatedOrder.part_id}.\n
+        \nRegards,\nTeam Techfest`,
+      };
+      transporter.sendMail(mailOptions, function (error, info) {
+        if (error) {
+          console.log(error);
+        } else {
+          console.log("Email sent: " + info.response);
+        }
+      });
 
       return res.status(200).json({ message: "Verified your payment" });
-
     } catch (error) {
       console.log(error);
       return res.status(200).json({ message: "Internal server Error!" });
