@@ -12,10 +12,10 @@ require("dotenv").config();
 const Part = {
   save: async function (req, res) {
     try {
-      const { name, mailid, phno, institute, question ,class } = req.body;
+      const { name, mailid, phno, institute, question, cls} = req.body;
       //console.log(req.body);
 
-      if (!name || !mailid || !phno || !institute || !question || !class)
+      if (!name || !mailid || !phno || !institute || !question)
         return res.status(400).send({
           sucess: false,
           msg: "enter all fields",
@@ -114,9 +114,9 @@ const Part = {
         phno: phno,
         institute: institute,
         question: question,
-        class:class,
         paymentstatus: "pending",
         razorpayorderid: order.id,
+        cls:cls,
       });
 
       const newpart_ = await newpart.save();
@@ -134,7 +134,7 @@ const Part = {
       phno:newpart_.phno,
       paymentstatus:newpart_.paymentstatus,
       part_id:newpart_.part_id,
-      class:newpart_.class,
+      cls:newpart_.cls
      }
     // console.log(respart);
      
@@ -174,7 +174,7 @@ const Part = {
             phno: arrdata[0].phno,
             paymentstatus: arrdata[0].paymentstatus,
             part_id: arrdata[0].part_id,
-            class:arrdata[0].class,
+            cls:arrdata[0].cls
           };
         //  console.log(resdata);
           return res.status(200).send({
