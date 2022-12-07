@@ -34,6 +34,10 @@ const partSchema = mongoose.Schema({
         type:String,
         required:[true,"Can't be blank"]
     },
+    class:{
+        type:String,
+        required:[true,"Can't be blank"]
+    },
     question:{
         type:String,
         required:[true,"Can't be blank"]
