@@ -4,6 +4,7 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const connect = require("./db/db");
 const router = require(`./api/routes/route`);
+const nodemon = require("nodemon");
 const app = express();
 app.use(cors());
 app.use(morgan("dev"));
@@ -16,6 +17,7 @@ app.get("/", (req, res) => {
     msg: "server started running",
   });
 });
+
 
 connect();
 app.use("/api", router);

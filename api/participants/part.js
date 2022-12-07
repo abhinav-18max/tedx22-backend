@@ -5,12 +5,15 @@ const crypto = require("crypto");
 const db = require("../../db/db");
 const { update } = require("../models/participants");
 const { response } = require("express");
+const { receiveMessageOnPort } = require("worker_threads");
+//const {nodemailer} = require("nodemailer");
+//import nodemailer from "nodemailer";
 require("dotenv").config();
 const Part = {
   save: async function (req, res) {
     try {
       const { name, mailid, phno, institute, question } = req.body;
-      console.log(req.body);
+      //console.log(req.body);
 
       if (!name || !mailid || !phno || !institute || !question)
         return res.status(400).send({
@@ -104,7 +107,7 @@ const Part = {
         receipt: crypto.randomBytes(10).toString("hex"),
       };
       const order = await instance.orders.create(options);
-      console.log(order);
+     // console.log(order);
       const newpart = part({
         name: name,
         mailid: mailid,
@@ -121,11 +124,25 @@ const Part = {
           sucess: false,
           msg: "error in saving",
         });
-      // res.json({ order, message: "Paymentid clear" });
+     // res.json({ order, message: "Paymentid clear" });
+      
+     const respart={
+      _id:newpart_._id,
+      name:newpart_.name,
+      mailid:newpart_.mailid,
+      phno:newpart_.phno,
+      paymentstatus:newpart_.paymentstatus,
+      part_id:newpart_.part_id,
+     }
+    // console.log(respart);
+     
       return res.status(200).send({
         sucess: true,
-        data: newpart_,
+       // duplicate: false,
+        data:respart,
       });
+
+     
     } catch (err) {
       console.log(err);
 
@@ -140,7 +157,7 @@ const Part = {
     // console.log(req.params);
     part.find(
       {
-        part_id: req.params.id,
+        phno: req.params.id,
       },
       (err, arrdata) => {
         if (err) {
@@ -148,9 +165,18 @@ const Part = {
             sucess: false,
           });
         } else {
+          const resdata = {
+            _id: arrdata[0]._id,
+            name: arrdata[0].name,
+            mailid: arrdata[0].mailid,
+            phno: arrdata[0].phno,
+            paymentstatus: arrdata[0].paymentstatus,
+            part_id: arrdata[0].part_id,
+          };
+        //  console.log(resdata);
           return res.status(200).send({
             success: true,
-            data: { ...arrdata, razorpayorderid: undefined },
+            data:resdata
           });
         }
       }
